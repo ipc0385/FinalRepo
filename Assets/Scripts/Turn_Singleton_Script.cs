@@ -6,6 +6,16 @@ public class Turn_Singleton_Script : MonoBehaviour
 
 	public Messenger_Script myEndingMessenger, myBeginningMessenger;
 
+    void Update()
+    {
+        //Debug.Log(gameObject.name + " fucked up");
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+           // Debug.Log(gameObject.name + " fucked up");
+            Turn();
+        }
+    }
+
 	public static Turn_Singleton_Script Get 
 	{
 		get
@@ -27,12 +37,14 @@ public class Turn_Singleton_Script : MonoBehaviour
 
 	public void Turn ()
 	{
-		myEndingMessenger.Publish();
+
+        myEndingMessenger.Publish();
 
 		myCurrentTurn++;
-		
-		myBeginningMessenger.Publish();
-	}
+
+        myBeginningMessenger.Publish();
+
+    }
 
 	public int CurrentTurn
 	{

@@ -14,7 +14,7 @@ public abstract class Effect_Script : MonoBehaviour
 		//		"Make me a new list and put this on it"
 		if (null == list)
 		{
-			list = new Effect_Script[2];
+			list = new Effect_Script[1];
 			list[0] = input;
 			return list;
 		}

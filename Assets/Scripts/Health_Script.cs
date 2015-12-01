@@ -8,12 +8,26 @@ public class Health_Script : Effect_Script {
 
 	[SerializeField]
 	private Effect_Script[] myHealthEffects, myDamageEffects;
-	
+
+    public int currentHealth;
+    public int currentMaxHealth;
+    public int currentDamage;
+
+    void Update()
+    {
+        Checkup();
+
+        currentHealth = health - damage;
+        currentMaxHealth = health;
+        currentDamage = damage;
+    }
+
+
 	public int health
 	{
 		get
 		{
-			return Effect_Script.AffectsList(myDamageEffects, myDamageValue, gameObject, gameObject);
+			return Effect_Script.AffectsList(myHealthEffects, myHealthValue, gameObject, gameObject);
 		}
 	}
 
@@ -21,7 +35,7 @@ public class Health_Script : Effect_Script {
 	{
 		get
 		{
-			return Effect_Script.AffectsList(myHealthEffects, myHealthValue, gameObject, gameObject);
+			return Effect_Script.AffectsList(myDamageEffects, myDamageValue, gameObject, gameObject);
 		}
 	}
 
@@ -40,9 +54,13 @@ public class Health_Script : Effect_Script {
 
 	public void Checkup ()
 	{
-		if(health < damage)
+		if(health <= damage)
 		{
-			transform.parent = GetComponent<Card_Script>().myCardHolder.myOwner.myGraveyard.transform;
+            Debug.Log(gameObject.name + " has died!");
+            if (gameObject.name != "EnemyPlayer"){
+                transform.parent = GetComponent<Owner_Script>().myOwner.myGraveyard.transform;  
+                transform.localPosition = Vector3.zero;
+            }
 		}
 	}
 
@@ -50,9 +68,9 @@ public class Health_Script : Effect_Script {
 	{
 		Term_Effect_Script termDamage = gameObject.AddComponent<Term_Effect_Script>();
 
-		termDamage.myTerm = -input;
+		termDamage.myTerm = input;
 
-		Effect_Script.Append(myDamageEffects, termDamage);
+		myDamageEffects = Effect_Script.Append(myDamageEffects, termDamage);
 	}
 
 }

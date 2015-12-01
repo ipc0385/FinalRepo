@@ -12,6 +12,9 @@ public class Cells : MonoBehaviour
     [SerializeField]
     private GameObject Down;
 
+    [SerializeField]
+    private bool end = false;
+
 
     //==============================================
     private bool occupied = false;
@@ -26,10 +29,10 @@ public class Cells : MonoBehaviour
         }
     }
 
-    //public bool isOccupied() 
-    //{
-    //    return occupied;
-    //}
+    public bool isEnd()
+    {
+        return end;
+    }
 
     public void ChangeOccupancy()
     {
