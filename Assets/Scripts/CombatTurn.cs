@@ -10,7 +10,6 @@ public class CombatTurn : MonoBehaviour {
 
 
     private Cells UnitLocation;
-    private Cells TilesInRange;
 
     private GameObject enemyUnit;
     //private Attack_Script EnemyAttack;
@@ -43,14 +42,19 @@ public class CombatTurn : MonoBehaviour {
         {
             if (UnitLocation.ForwardExists(range) == true)
             {
-                TilesInRange = UnitLocation.GetForward(range).GetComponent<Cells>();
+                Cells TilesInRange = UnitLocation.GetForward(range).GetComponent<Cells>();
                 if (TilesInRange.isOccupied)
                 {
-                    InRangeOwner = TilesInRange.GetComponentInChildren<Owner_Script>();
+                    GameObject enemyObject = TilesInRange.transform.GetChild(0).gameObject;
+
+                    InRangeOwner = enemyObject.GetComponent<Owner_Script>();
                     if (InRangeOwner.myOwner != UnitOwner.myOwner)
                     {
-                        EnemyHealth = TilesInRange.GetComponentInChildren<Health_Script>();
+                        Debug.Log("hi ian: " + InRangeOwner.myOwner + ", " + UnitOwner.myOwner);
+                        Debug.Log(gameObject + " - has delt damage to - " + enemyObject);
+                        EnemyHealth = enemyObject.GetComponent<Health_Script>();
                         EnemyHealth.ApplyDamage(UnitAttack.damage);
+                        
                     }
                 }
             }
@@ -61,10 +65,43 @@ public class CombatTurn : MonoBehaviour {
             if (InRangeOwner.myOwner != UnitOwner.myOwner)
             {
                 //Debug.Log(gameObject.name + " has reached the end!");
-                EnemyHealth = GameObject.Find("EnemyPlayer").GetComponent<Health_Script>();
+                EnemyHealth = InRangeOwner.GetComponent<Health_Script>();
                 EnemyHealth.ApplyDamage(1);
                 UnitHealth.ApplyDamage(9001);
             }
         }
     }
+
+    //void EnemyDealDamage()
+    //{
+    //    UnitLocation = gameObject.GetComponentInParent<Cells>();
+
+    //    if (transform.parent.GetComponent<Cells>().isEnd() == false)
+    //    {
+    //        if (UnitLocation.BackExists(range) == true)
+    //        {
+    //            TilesInRange = UnitLocation.GetBack(range).GetComponent<Cells>();
+    //            if (TilesInRange.isOccupied)
+    //            {
+    //                InRangeOwner = TilesInRange.GetComponentInChildren<Owner_Script>();
+    //                if (InRangeOwner.myOwner != UnitOwner.myOwner)
+    //                {
+    //                    EnemyHealth = TilesInRange.GetComponentInChildren<Health_Script>();
+    //                    EnemyHealth.ApplyDamage(UnitAttack.damage);
+    //                }
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        InRangeOwner = transform.parent.GetComponent<Owner_Script>();
+    //        if (InRangeOwner.myOwner != UnitOwner.myOwner)
+    //        {
+    //            //Debug.Log(gameObject.name + " has reached the end!");
+    //            EnemyHealth = GameObject.Find("Main Camera").GetComponent<Health_Script>();
+    //            EnemyHealth.ApplyDamage(1);
+    //            UnitHealth.ApplyDamage(9001);
+    //        }
+    //    }
+    //}
 }
