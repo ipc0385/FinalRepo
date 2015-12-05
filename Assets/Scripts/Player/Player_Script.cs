@@ -8,9 +8,7 @@ public class Player_Script : MonoBehaviour {
 	public int myManaValue;
 	public Card_Holder_Script myDeck, myGraveyard, myHand;
 
-	public int mana;
-
-	public int Mana
+	public int mana
 	{
 		get
 		{
@@ -18,16 +16,22 @@ public class Player_Script : MonoBehaviour {
 		}
 	}
 
-	// Use this for initialization
-	void Start () 
+	public Card_Script Draw ()
 	{
-	
+		return myDeck.myCards[Random.Range(0, myHand.transform.childCount)];
 	}
-	
-	// Update is called once per frame
-	void Update () 
+
+	public void Hand (Card_Script input)
 	{
-		mana = Mana;
+		input.transform.parent = myHand.transform;
+	}
+
+	void Update()
+	{
+		if(Input.GetKey(KeyCode.F))
+		{
+			Hand(Draw());
+		}
 	}
 
 }

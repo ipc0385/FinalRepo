@@ -43,7 +43,7 @@ public class Card_Script : Effect_Script {
 		{
 			//get cost of card
 			int manaCost = Mana;
-			int playerMana = playerScript.Mana;
+			int playerMana = playerScript.mana;
 
 			Debug.Log("PlayerMana: " + playerMana);
 
