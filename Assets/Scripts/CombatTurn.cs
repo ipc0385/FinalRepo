@@ -50,8 +50,8 @@ public class CombatTurn : MonoBehaviour {
                     InRangeOwner = enemyObject.GetComponent<Owner_Script>();
                     if (InRangeOwner.myOwner != UnitOwner.myOwner)
                     {
-                        Debug.Log("hi ian: " + InRangeOwner.myOwner + ", " + UnitOwner.myOwner);
-                        Debug.Log(gameObject + " - has delt damage to - " + enemyObject);
+                        //Debug.Log("hi ian: " + InRangeOwner.myOwner + ", " + UnitOwner.myOwner);
+                        //Debug.Log(gameObject + " - has delt damage to - " + enemyObject);
                         EnemyHealth = enemyObject.GetComponent<Health_Script>();
                         EnemyHealth.ApplyDamage(UnitAttack.damage);
                         
@@ -65,7 +65,7 @@ public class CombatTurn : MonoBehaviour {
             if (InRangeOwner.myOwner != UnitOwner.myOwner)
             {
                 //Debug.Log(gameObject.name + " has reached the end!");
-                EnemyHealth = InRangeOwner.GetComponent<Health_Script>();
+                EnemyHealth = InRangeOwner.myOwner.GetComponent<Health_Script>();
                 EnemyHealth.ApplyDamage(1);
                 UnitHealth.ApplyDamage(9001);
             }
