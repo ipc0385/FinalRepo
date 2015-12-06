@@ -21,23 +21,46 @@ public class Messenger_Script : MonoBehaviour
 {
 
 	[SerializeField]
-	private string myName;
+	private string _myName;
 
 	[SerializeField]
 	private Subscription[] mySubscribers;
+
+	private int size
+	{
+		get
+		{
+			return null == mySubscribers ? 0 : mySubscribers.Length;
+		}
+	}
+
+	public string myName
+	{
+		set
+		{
+			_myName = value;
+		}
+
+		get
+		{
+			return _myName;
+		}
+	}
 
 	public void Subscribe(Subscription input)
 	{
 		Debug.Log(input.Key + " subscribed to " + myName + " the " + this + ".");
 
-		var temp = new Subscription[mySubscribers.Length + 1];
+		int top = size;
 
-		for (int i = 0; i < mySubscribers.Length; i++)
+		var temp = new Subscription[top + 1];
+
+		for (int i = 0; i < top; i++)
 		{
 			temp[i] = mySubscribers[i];
 		}
 
-		temp[mySubscribers.Length] = input;
+		temp[top] = input;
 
 		mySubscribers = temp;
 	}
@@ -46,10 +69,12 @@ public class Messenger_Script : MonoBehaviour
 	{
 		Debug.Log(input + " unsubscribed to " + myName + " the " + this + ".");
 
-		var temp = new Subscription[mySubscribers.Length - 1];
+		int top = size;
+
+		var temp = new Subscription[top - 1];
 
 		int j = 0;
-		for (int i = 0; i < temp.Length; i++)
+		for (int i = 0; i < top; i++)
 		{
 			if (mySubscribers[i].Key != input)
 			{
@@ -66,9 +91,12 @@ public class Messenger_Script : MonoBehaviour
 		{
 			Debug.Log(myName + " the " + this + " published.");
 
-			foreach (var entry in mySubscribers)
+			if (null != mySubscribers)
 			{
-				entry.Key.SendMessage(entry.Value);
+				foreach (var entry in mySubscribers)
+				{
+					entry.Key.SendMessage(entry.Value);
+				}
 			}
 		}
 	}

@@ -25,12 +25,12 @@ public class CombatTurn : MonoBehaviour {
         UnitAttack = gameObject.GetComponent<Attack_Script>();
         UnitHealth = gameObject.GetComponent<Health_Script>();
         UnitLocation = gameObject.GetComponentInParent<Cells>();
-        Turn_Singleton_Script.Get.myEndingMessenger.Subscribe(new Subscription(gameObject,"DealDamage"));
-        
+		UnitOwner.myOwner.myTurnState.myCombatMessenger.Subscribe(new Subscription(gameObject, "DealDamage"));
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
         //UnitLocation = gameObject.GetComponentInParent<Cells>();
         
 	}

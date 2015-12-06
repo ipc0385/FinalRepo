@@ -18,12 +18,23 @@ public class Finite_State_Machine_Script : MonoBehaviour {
 		{
 			Finite_State_Script nextState = value;
 
-			if (myCurrentState.IsValidTransition(nextState))
+			if(myCurrentState)
 			{
-				myCurrentState.Leave();
+				if (myCurrentState.IsValidTransition(nextState))
+				{
+					myCurrentState.Leave();
 
-				myCurrentState.enabled = false;
+					myCurrentState.enabled = false;
 
+					myCurrentState = nextState;
+
+					myCurrentState.enabled = true;
+
+					myCurrentState.Enter();
+				}
+			}
+			else
+			{
 				myCurrentState = nextState;
 
 				myCurrentState.enabled = true;

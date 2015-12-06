@@ -9,7 +9,7 @@ public class MoveUnits : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         movement = gameObject.GetComponent<MoveAnimate>();
-        Turn_Singleton_Script.Get.myEndingMessenger.Subscribe(new Subscription(gameObject, "Move"));
+        gameObject.GetComponent<Owner_Script>().myOwner.myTurnState.myMovementMessenger.Subscribe(new Subscription(gameObject, "Move"));
 	}
 	
 	// Update is called once per frame
@@ -42,7 +42,7 @@ public class MoveUnits : MonoBehaviour {
                         movement.myAnim.Play("moveUnit");
                         //transform.localPosition = Vector3.up.normalized*.35f;
                     }
-                    else Debug.Log("Anouther Unit is Blocking the way of " + gameObject.name);
+                    else Debug.Log("Another Unit is Blocking the way of " + gameObject.name);
                 }
                 else Debug.Log(gameObject.name + " Cannot move Player Unit Forward");
             }

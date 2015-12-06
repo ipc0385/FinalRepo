@@ -41,4 +41,19 @@ public class Finite_State_Script : MonoBehaviour
 	{
 
 	}
+
+	public Finite_State_Script next
+	{
+		get
+		{
+			return null == myTransitionStates ? null : myTransitionStates[0];
+		}
+
+		set
+		{
+			myTransitionStates = new Finite_State_Script[1];
+			myTransitionStates[0] = value;
+		}
+	}
+
 }

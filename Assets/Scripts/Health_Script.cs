@@ -56,7 +56,7 @@ public class Health_Script : Effect_Script {
 	{
 		if(health <= damage)
 		{
-            Debug.Log(gameObject.name + " has died!");
+            //Debug.Log(gameObject.name + " has died!");
             if (gameObject.name != "EnemyPlayer"){
                 transform.parent = GetComponent<Owner_Script>().myOwner.myGraveyard.transform;  
                 transform.localPosition = Vector3.zero;
