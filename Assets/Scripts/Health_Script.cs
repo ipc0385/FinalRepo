@@ -27,7 +27,7 @@ public class Health_Script : Effect_Script {
 	{
 		get
 		{
-			return Effect_Script.AffectsList(myHealthEffects, myHealthValue, gameObject, gameObject);
+			return Effect_Script.AffectsList(myHealthEffects, myHealthValue, myHealthValue, gameObject, gameObject);
 		}
 	}
 
@@ -35,7 +35,7 @@ public class Health_Script : Effect_Script {
 	{
 		get
 		{
-			return Effect_Script.AffectsList(myDamageEffects, myDamageValue, gameObject, gameObject);
+			return Effect_Script.AffectsList(myDamageEffects, myDamageValue, myDamageValue, gameObject, gameObject);
 		}
 	}
 
@@ -47,7 +47,7 @@ public class Health_Script : Effect_Script {
 		}
 	}
 
-	public override int Affect(int input, GameObject inSubject, GameObject inObject)
+	public override int Affect(int initial, int input, GameObject inSubject, GameObject inObject)
 	{
 		return health - damage;
 	}

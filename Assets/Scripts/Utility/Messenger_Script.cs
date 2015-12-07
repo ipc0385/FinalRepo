@@ -49,7 +49,7 @@ public class Messenger_Script : MonoBehaviour
 
 	public void Subscribe(Subscription input)
 	{
-		Debug.Log(input.Key + " subscribed to " + myName + " the " + this + ".");
+		//Debug.Log(input.Key + " subscribed to " + myName + " the " + this + ".");
 
 		int top = size;
 
@@ -67,7 +67,7 @@ public class Messenger_Script : MonoBehaviour
 
 	public void Unsubscribe(GameObject input)
 	{
-		Debug.Log(input + " unsubscribed to " + myName + " the " + this + ".");
+		//Debug.Log(input + " unsubscribed to " + myName + " the " + this + ".");
 
 		int top = size;
 
@@ -89,7 +89,7 @@ public class Messenger_Script : MonoBehaviour
 	{
 		if (enabled)
 		{
-			Debug.Log(myName + " the " + this + " published.");
+			//Debug.Log(myName + " the " + this + " published.");
 
 			if (null != mySubscribers)
 			{

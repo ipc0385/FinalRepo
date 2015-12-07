@@ -10,7 +10,7 @@ public class Attack_Script : MonoBehaviour
 	{
 		get
 		{
-			return Effect_Script.AffectsList(myDamageEffects, myDamageValue, gameObject, gameObject);
+			return Effect_Script.AffectsList(myDamageEffects, myDamageValue, myDamageValue, gameObject, gameObject);
 		}
 	}
 }

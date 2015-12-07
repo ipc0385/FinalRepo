@@ -25,7 +25,7 @@ public class Card_Script : Effect_Script {
 	{
 		get
 		{
-			return Effect_Script.AffectsList(myManaEffects, myManaValue, gameObject, gameObject);
+			return Effect_Script.AffectsList(myManaEffects, myManaValue, myManaValue, gameObject, gameObject);
 		}
 	}
 
@@ -35,7 +35,7 @@ public class Card_Script : Effect_Script {
 		mana = Mana;
 	}
 
-	public override int Affect(int input, GameObject inSubject, GameObject inObject)
+	public override int Affect(int initial, int input, GameObject inSubject, GameObject inObject)
 	{
 		Player_Script playerScript = myCardHolder.myOwner;
 			
@@ -67,7 +67,7 @@ public class Card_Script : Effect_Script {
 					Debug.Log("No graveyard for used card");
 				}
 
-				return Effect_Script.AffectsList(myPlayEffects, 0, inSubject, inObject);
+				return Effect_Script.AffectsList(myPlayEffects, initial, input, inSubject, inObject);
 			}
 			else
 			{

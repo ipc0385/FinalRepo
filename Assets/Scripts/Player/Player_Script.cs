@@ -43,8 +43,6 @@ public class Player_Script : MonoBehaviour {
 
 	void Turn ()
 	{
-		Debug.Log(Turn_Singleton_Script.Get.myFiniteStateMachine.CurrentState + " into " + myTurnState.next);
-
 		Turn_Singleton_Script.Get.myFiniteStateMachine.CurrentState = myTurnState.next;
 	}
 
@@ -57,26 +55,32 @@ public class Player_Script : MonoBehaviour {
 	{
 		get
 		{
-			return Effect_Script.AffectsList(myManaEffects, myManaValue, gameObject, gameObject);
+			return Effect_Script.AffectsList(myManaEffects, myManaValue, myManaValue, gameObject, gameObject);
 		}
 	}
 
 	public Card_Script Draw ()
 	{
-		return myDeck.myCards[Random.Range(0, myHand.transform.childCount)];
+		if (myDeck.myCards.Length > 0)
+		{
+			return myDeck.myCards[Random.Range(0, myDeck.myCards.Length)];
+		}
+
+		return null;
 	}
 
 	public void Hand (Card_Script input)
 	{
-		input.transform.parent = myHand.transform;
+		if (input)
+		{
+			input.transform.parent = myHand.transform;
+		}
 	}
 
-	void Update()
+	private void Draw_to_Hand ()
+		//draws a card from the deck and puts it in the hand
 	{
-		if(Input.GetKey(KeyCode.F))
-		{
-			Hand(Draw());
-		}
+		Hand(Draw());
 	}
 
 }

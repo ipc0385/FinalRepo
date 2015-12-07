@@ -7,6 +7,14 @@ public class Finite_State_Machine_Script : MonoBehaviour {
 	//a reference is an enumeration right?
 	protected Finite_State_Script myCurrentState;
 
+	void Update()
+	{
+		if (myCurrentState)
+		{
+			myCurrentState.enabled = true;
+		}
+	}
+
 	public Finite_State_Script CurrentState
 	{
 		get

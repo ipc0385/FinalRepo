@@ -6,7 +6,7 @@ public class Assign_Effect_Script : Effect_Script
 
 	public int myValue;
 
-	public override int Affect(int input, GameObject inSubject, GameObject inObject)
+	public override int Affect(int initial, int input, GameObject inSubject, GameObject inObject)
 	{
 		return myValue;
 	}

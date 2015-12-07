@@ -46,7 +46,7 @@ public class Card_Animation_FSM_Script : Finite_State_Machine_Script
 
 	public void PlayCard(GameObject inSubject, GameObject inObject)
 	{
-		myCard.Affect(0, inSubject, inObject);
+		myCard.Affect(0, 0, inSubject, inObject);
 	}
 
 	private Animation myAnim;

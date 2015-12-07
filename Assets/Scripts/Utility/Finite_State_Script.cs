@@ -16,12 +16,12 @@ public class Finite_State_Script : MonoBehaviour
 
 	public virtual void Leave()
 	{
-		Debug.Log(myName + " the " + this + " leaves.");
+		//Debug.Log(myName + " the " + this + " leaves.");
 	}
 
 	public virtual void Enter()
 	{
-		Debug.Log(myName + " the " + this + " enters.");
+		//Debug.Log(myName + " the " + this + " enters.");
 	}
 
 	//checks to see if the transition is a valid transition for this state machine

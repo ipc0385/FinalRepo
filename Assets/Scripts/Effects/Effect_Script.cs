@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class Effect_Script : MonoBehaviour 
 {
-	public abstract int Affect(int input, GameObject inSubject, GameObject inObject);
+	public abstract int Affect(int initial, int input, GameObject inSubject, GameObject inObject);
 	
 	public static Effect_Script[] Append(Effect_Script[] list, Effect_Script input, int inch = 2)
 	{
@@ -47,7 +47,7 @@ public abstract class Effect_Script : MonoBehaviour
 		}
 	}
 
-	public static int AffectsList(Effect_Script[] list, int input, GameObject inSubject, GameObject inObject)
+	public static int AffectsList(Effect_Script[] list, int initial, int input, GameObject inSubject, GameObject inObject)
 	{
 		if (null == list)
 		{
@@ -60,7 +60,7 @@ public abstract class Effect_Script : MonoBehaviour
 			{
 				continue;
 			}
-			input = list[i].Affect(input, inSubject, inObject);
+			input = list[i].Affect(initial, input, inSubject, inObject);
 		}
 
 		return input;
