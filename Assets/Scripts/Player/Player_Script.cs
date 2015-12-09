@@ -83,4 +83,16 @@ public class Player_Script : MonoBehaviour {
 		Hand(Draw());
 	}
 
+    public void GiveMana( int manaNum)
+    {
+        Term_Effect_Script Manergy = gameObject.AddComponent<Term_Effect_Script>();
+        Manergy.myTerm = manaNum;
+
+        Debug.Log("I have " + mana + " Energy! ༼ つ ◕_◕ ༽つ ~ GIVE ME " + manaNum + " MANA ~");
+        myManaEffects = Effect_Script.Append(myManaEffects,Manergy);
+        Debug.Log("I now have " + mana + "Energy!");
+    }
+
+
+    //public Color color;
 }
