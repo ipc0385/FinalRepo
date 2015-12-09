@@ -8,10 +8,44 @@ public class Card_Script : Effect_Script {
 
 	public int mana;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
+    [System.Serializable]
+    private class Mask
+    {
+        [SerializeField]
+        public bool isOccupied, isOwned;
+
+        //returns true if matches
+        //returns false if fails
+        public bool Match(GameObject inSubject, GameObject inObject)
+        {
+            Player_Script playerScript = inSubject.GetComponent<Player_Script>();
+		
+            Player_Script ownerScript = inObject.GetComponent<Owner_Script>().myOwner;
+
+            bool result = true;
+
+            if(isOwned)
+            {
+                if(playerScript != ownerScript)
+                {
+                    result = false;
+                }
+            }
+            
+            if(isOccupied)
+            {
+                if(false != inObject.GetComponent<Cells>().isOccupied)
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+    }
+
+    [SerializeField]
+    private Mask myMaskNegative, myMaskPositive;
 
 	public Card_Holder_Script myCardHolder
 	{
@@ -50,24 +84,66 @@ public class Card_Script : Effect_Script {
 			//if player has enough
 			if (manaCost <= playerMana)
 			{
-				Term_Effect_Script subtractionTerm = gameObject.AddComponent<Term_Effect_Script>();
+                Player_Script ownerScript = inObject.GetComponent<Owner_Script>().myOwner;
 
-				subtractionTerm.myTerm = -manaCost;
+                if (myMaskNegative.isOwned)
+                {
+                    if (playerScript == ownerScript)
+                    {
+                        Debug.Log("Target can't be owned by you.");
+                        return 0;
+                    }
+                }
 
-				//pay cost
-				playerScript.myManaEffects = Effect_Script.Append(playerScript.myManaEffects, subtractionTerm);
+                if (myMaskPositive.isOwned)
+                {
+                    if (playerScript != ownerScript)
+                    {
+                        Debug.Log("Target must be owned by you.");
+                        return 0;
+                    }
+                }
 
-				if(playerScript.myGraveyard)
-				{
-					transform.parent = playerScript.myGraveyard.transform;
-					Debug.Log("Went into graveyard");
-				}
-				else
-				{
-					Debug.Log("No graveyard for used card");
-				}
+                Cells cell = inObject.GetComponent<Cells>();
 
-				return Effect_Script.AffectsList(myPlayEffects, initial, input, inSubject, inObject);
+                if (myMaskNegative.isOccupied)
+                {
+                    if (cell.isOccupied)
+                    {
+                        Debug.Log("Target can't be occupied.");
+                        return 0;
+                    }
+                }
+
+                if (myMaskPositive.isOccupied)
+                {
+                    if (false == cell.isOccupied)
+                    {
+                        Debug.Log("Target must be occupied.");
+                        return 0;
+                    }
+                }
+
+                Term_Effect_Script subtractionTerm = gameObject.AddComponent<Term_Effect_Script>();
+
+                subtractionTerm.myTerm = -manaCost;
+
+                //pay cost
+                playerScript.myManaEffects = Effect_Script.Append(playerScript.myManaEffects, subtractionTerm);
+
+                if (playerScript.myGraveyard)
+                {
+                    transform.parent = playerScript.myGraveyard.transform;
+                    Debug.Log("Went into graveyard");
+                }
+                else
+                {
+                    Debug.Log("No graveyard for used card");
+                }
+
+                Effect_Script.AffectsList(myPlayEffects, initial, input, inSubject, inObject);
+                return 1;
+				
 			}
 			else
 			{
