@@ -13,7 +13,8 @@ public class Card_Highlighted_State_Script : Finite_State_Script
 	}
 
 	public override void Enter()
-	{
+    {
+        base.Enter();
 		myCardAnimationFSM.PlayClip(.5f, myCardAnimationFSM.myCard.myCardHolder.CardPosition(myCardAnimationFSM) + Vector3.up * 0.5f - Vector3.forward * 0.5f, Card_Animation_FSM_Script.CardSize() * 2f, myCardAnimationFSM.myCard.myCardHolder.CardRotation(myCardAnimationFSM), "highlighted");
 	}
 

@@ -14,7 +14,8 @@ public class Card_Selected_State_Script : Finite_State_Script
 	}
 
 	public override void Enter()
-	{
+    {
+        base.Enter();
 		myCardAnimationFSM.PlayClip(.5f, transform.localScale, Card_Animation_FSM_Script.CardSize() * 0.25f, transform.localRotation, "selected");
 	}
 
@@ -47,13 +48,13 @@ public class Card_Selected_State_Script : Finite_State_Script
 				target = hit.collider.gameObject;
 			}
 
-			myCardAnimationFSM.PlayCard(myCardAnimationFSM.myCard.myCardHolder.myOwner.gameObject, target);
-			myCardAnimationFSM.CurrentState = myTransitionStates[1];
+            if (0 != myCardAnimationFSM.PlayCard(myCardAnimationFSM.myCard.myCardHolder.myOwner.gameObject, target))
+            {
+                myCardAnimationFSM.CurrentState = myTransitionStates[1];
+            }
 		}
-		else
-		{
-			myCardAnimationFSM.CurrentState = myTransitionStates[0];
-		}
+		
+        myCardAnimationFSM.CurrentState = myTransitionStates[0];
 	}
 
 	private Card_Animation_FSM_Script myCardAnimationFSM;

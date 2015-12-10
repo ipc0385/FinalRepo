@@ -12,7 +12,8 @@ public class Card_Resting_State_Script : Finite_State_Script
 	}
 
 	public override void Enter()
-	{
+    {
+        base.Enter();
 		myCardAnimationFSM.PlayClip(.5f, myCardAnimationFSM.myCard.myCardHolder.CardPosition(myCardAnimationFSM), Card_Animation_FSM_Script.CardSize(), myCardAnimationFSM.myCard.myCardHolder.CardRotation(myCardAnimationFSM), "resting");
 	}
 
