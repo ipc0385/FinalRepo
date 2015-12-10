@@ -49,6 +49,9 @@ public class Player_Script : MonoBehaviour {
 	void Start()
 	{
 		Debug.Log(myTurnState);
+        Draw_to_Hand();
+        Draw_to_Hand();
+        Draw_to_Hand();
 	}
 
 	public int mana
