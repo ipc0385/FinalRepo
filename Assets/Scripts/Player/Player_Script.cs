@@ -8,6 +8,9 @@ public class Player_Script : MonoBehaviour {
 	public int myManaValue;
 	public Card_Holder_Script myDeck, myGraveyard, myHand;
 
+    //[SerializeField]
+    //public Color myColor;
+
 	[SerializeField]
 	private Turn_State_Script _myTurnState;
 
@@ -96,6 +99,4 @@ public class Player_Script : MonoBehaviour {
         Debug.Log("I now have " + mana + "Energy!");
     }
 
-
-    //public Color color;
 }
