@@ -20,7 +20,10 @@ public class Spawn_Effect_Script : Effect_Script
         spawn.transform.localScale = myInitialSize;
 
         Owner_Script Owner = mySpawn.GetComponent<Owner_Script>();
+        
         Owner.myOwner = inSubject.GetComponent<Player_Script>();
+
+        spawn.GetComponent<Owner_Script>().myOwner = Owner.myOwner;
 
 		return input;
 	}

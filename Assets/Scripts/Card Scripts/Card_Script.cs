@@ -72,19 +72,24 @@ public class Card_Script : Effect_Script {
 	public override int Affect(int initial, int input, GameObject inSubject, GameObject inObject)
 	{
 		Player_Script playerScript = myCardHolder.myOwner;
-			
+
+        Debug.Log("playerScript: " + playerScript);
+
 		if(playerScript)
 		{
 			//get cost of card
 			int manaCost = Mana;
 			int playerMana = playerScript.mana;
 
-			Debug.Log("PlayerMana: " + playerMana);
-
 			//if player has enough
 			if (manaCost <= playerMana)
 			{
-                Player_Script ownerScript = inObject.GetComponent<Owner_Script>().myOwner;
+                Player_Script ownerScript = null;
+
+                if(inObject)
+                {
+                    ownerScript = inObject.GetComponent<Owner_Script>().myOwner;
+                }
 
                 if (myMaskNegative.isOwned)
                 {

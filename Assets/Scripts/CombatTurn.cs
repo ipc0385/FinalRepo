@@ -30,7 +30,7 @@ public class CombatTurn : MonoBehaviour {
         UnitAttack = gameObject.GetComponent<Attack_Script>();
         UnitHealth = gameObject.GetComponent<Health_Script>();
         UnitLocation = gameObject.GetComponentInParent<Cells>();
-		UnitOwner.myOwner.myTurnState.myCombatMessenger.Subscribe(new Subscription(gameObject, AttackDirection));
+        UnitOwner.myOwner.myTurnState.myCombatMessenger.Subscribe(new Subscription(gameObject, AttackDirection));
 	}
 	
 	// Update is called once per frame
@@ -84,46 +84,55 @@ public class CombatTurn : MonoBehaviour {
     }
         
 
-    void AttackEnemy()
-    {
-        UnitLocation = gameObject.GetComponentInParent<Cells>();
+	void AttackEnemy()
+	{
+        	UnitLocation = gameObject.GetComponentInParent<Cells>();
 
-        for (int i = range; i > 0; i--)
-        {
-            Debug.Log(gameObject.name +": Attacking " + i + " tiles ahead");
-            if (transform.parent.GetComponent<Cells>().isEnd() == false || transform.parent.GetComponent<Cells>().isEnd() == UnitOwner.myOwner)
-            {
+        	for (int i = range; i > 0; i--)
+		{
+        		Cells cell = transform.parent.GetComponent<Cells>();
+
+       			if (cell && cell.isEnd() == false)
+       			{
+            			Debug.Log(gameObject.name +": Attacking " + i + " tiles ahead");
+            			if (transform.parent.GetComponent<Cells>().isEnd() == false || transform.parent.GetComponent<Cells>().isEnd() == UnitOwner.myOwner)
+            			{
                 
-                if (UnitLocation.BackExists(i) == true)
-                {
-                    Cells TilesInRange = UnitLocation.GetBack(i).GetComponent<Cells>();
-                    if (TilesInRange.isOccupied)
-                    {
-                        GameObject enemyObject = TilesInRange.transform.GetChild(0).gameObject;
+                			if (UnitLocation.BackExists(i) == true)
+                			{
+                    				Cells TilesInRange = UnitLocation.GetBack(i).GetComponent<Cells>();
+                    				if (TilesInRange.isOccupied)
+                    				{
+                        				GameObject enemyObject = TilesInRange.transform.GetChild(0).gameObject;
 
-                        InRangeOwner = enemyObject.GetComponent<Owner_Script>();
-                        if (InRangeOwner.myOwner != UnitOwner.myOwner)
-                        {
-                            //Debug.Log("hi ian: " + InRangeOwner.myOwner + ", " + UnitOwner.myOwner);
-                            //Debug.Log(gameObject + " - has delt damage to - " + enemyObject);
-                            EnemyHealth = enemyObject.GetComponent<Health_Script>();
-                            EnemyHealth.ApplyDamage(UnitAttack.damage);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                InRangeOwner = transform.parent.GetComponent<Owner_Script>();
-                if (InRangeOwner.myOwner != UnitOwner.myOwner)
-                {
-                    //Debug.Log(gameObject.name + " has reached the end!");
-                    EnemyHealth = InRangeOwner.myOwner.GetComponent<Health_Script>();
-                    EnemyHealth.ApplyDamage(1);
-                    UnitHealth.ApplyDamage(9001);
-                    i = 0;
-                }
-            }
-        }
-    }
+                        				InRangeOwner = enemyObject.GetComponent<Owner_Script>();
+                        				if (InRangeOwner.myOwner != UnitOwner.myOwner)
+                        				{
+                            					//Debug.Log("hi ian: " + InRangeOwner.myOwner + ", " + UnitOwner.myOwner);
+                            					//Debug.Log(gameObject + " - has delt damage to - " + enemyObject);
+                            					EnemyHealth = enemyObject.GetComponent<Health_Script>();
+                            					EnemyHealth.ApplyDamage(UnitAttack.damage);
+                        				}
+                    				}
+                			}
+            			}
+        		}
+        		else
+        		{
+          	 		InRangeOwner = transform.parent.GetComponent<Owner_Script>();
+          	 		if (InRangeOwner && InRangeOwner.myOwner != UnitOwner.myOwner)
+            			{
+                			InRangeOwner = transform.parent.GetComponent<Owner_Script>();
+                			if (InRangeOwner.myOwner != UnitOwner.myOwner)
+                			{
+                    				//Debug.Log(gameObject.name + " has reached the end!");
+                    				EnemyHealth = InRangeOwner.myOwner.GetComponent<Health_Script>();
+                    				EnemyHealth.ApplyDamage(1);
+                    				UnitHealth.ApplyDamage(9001);
+                    				i = 0;
+                			}
+            			}
+        		}
+    		}
+	}
 }

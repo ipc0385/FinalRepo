@@ -67,7 +67,7 @@ public class Player_Script : MonoBehaviour {
 
 	public Card_Script Draw ()
 	{
-		if (myDeck.myCards.Length > 0)
+		if (myDeck && myDeck.myCards.Length > 0)
 		{
 			return myDeck.myCards[Random.Range(0, myDeck.myCards.Length)];
 		}
