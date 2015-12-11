@@ -23,14 +23,27 @@ public class Opponent_Script : MonoBehaviour
 	void Think ()
 	{
 		//a smart ai would have things happen here,
-        MyEffect.Affect(0, 0, gameObject, PlayCardsHere1);
-        
+        if (false == PlayCardsHere1.GetComponent<Cells>().isOccupied)
+        {
+            MyEffect.Affect(0, 0, gameObject, PlayCardsHere1);
+        }
 
-
-		if (myFinishTurnMessenger)
-		{
-			myFinishTurnMessenger.Publish();
-		}
+        myDuration = 1f;
 	}
+
+    void Update()
+    {
+        myDuration -= Time.deltaTime;
+
+        if(myDuration <= 0f)
+        {
+            if (myFinishTurnMessenger)
+            {
+                myFinishTurnMessenger.Publish();
+            }
+        }
+    }
+
+    private float myDuration = 0f;
 
 }

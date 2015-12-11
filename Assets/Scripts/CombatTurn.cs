@@ -30,7 +30,7 @@ public class CombatTurn : MonoBehaviour {
         UnitAttack = gameObject.GetComponent<Attack_Script>();
         UnitHealth = gameObject.GetComponent<Health_Script>();
         UnitLocation = gameObject.GetComponentInParent<Cells>();
-		UnitOwner.myOwner.myTurnState.myCombatMessenger.Subscribe(new Subscription(gameObject, AttackDirection));
+        UnitOwner.myOwner.myTurnState.myCombatMessenger.Subscribe(new Subscription(gameObject, AttackDirection));
 	}
 	
 	// Update is called once per frame
@@ -40,7 +40,8 @@ public class CombatTurn : MonoBehaviour {
         
 	}
 
-    void AttackFriendly(){
+    void AttackFriendly()
+    {
         UnitLocation = gameObject.GetComponentInParent<Cells>();
         
         if (transform.parent.GetComponent<Cells>().isEnd() == false)
@@ -81,7 +82,9 @@ public class CombatTurn : MonoBehaviour {
     {
         UnitLocation = gameObject.GetComponentInParent<Cells>();
 
-        if (transform.parent.GetComponent<Cells>().isEnd() == false)
+        Cells cell = transform.parent.GetComponent<Cells>();
+
+        if (cell && cell.isEnd() == false)
         {
             if (UnitLocation.BackExists(range) == true)
             {
@@ -105,7 +108,7 @@ public class CombatTurn : MonoBehaviour {
         else
         {
             InRangeOwner = transform.parent.GetComponent<Owner_Script>();
-            if (InRangeOwner.myOwner != UnitOwner.myOwner)
+            if (InRangeOwner && InRangeOwner.myOwner != UnitOwner.myOwner)
             {
                 //Debug.Log(gameObject.name + " has reached the end!");
                 EnemyHealth = InRangeOwner.myOwner.GetComponent<Health_Script>();

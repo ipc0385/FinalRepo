@@ -26,7 +26,9 @@ public class MoveUnits : MonoBehaviour {
     public void MoveFriendly()
     {
 
-        if (transform.parent.GetComponent<Cells>().isEnd() == false)
+        Cells cell = transform.parent.GetComponent<Cells>();
+
+        if (cell && cell.isEnd() == false)
         {
             //Unit = gameObject.GetComponent<UnitInfo>();
             int distance = gameObject.GetComponent<UnitInfo>().GetSpeed();
@@ -60,7 +62,9 @@ public class MoveUnits : MonoBehaviour {
     public void MoveEnemy()
     {
 
-        if (transform.parent.GetComponent<Cells>().isEnd() == false)
+        Cells cell = transform.parent.GetComponent<Cells>();
+
+        if (cell && cell.isEnd() == false)
         {
             //Unit = gameObject.GetComponent<UnitInfo>();
             int distance = gameObject.GetComponent<UnitInfo>().GetSpeed();
