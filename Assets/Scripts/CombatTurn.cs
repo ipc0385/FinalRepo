@@ -130,7 +130,6 @@ public class CombatTurn : MonoBehaviour {
                     EnemyHealth = InRangeOwner.myOwner.GetComponent<Health_Script>();
                     EnemyHealth.ApplyDamage(1);
                     UnitHealth.ApplyDamage(9001);
-                    i = 0;
                 }
             }
         }
