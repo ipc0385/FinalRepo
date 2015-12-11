@@ -14,18 +14,24 @@ public class Opponent_Script : MonoBehaviour
     public Effect_Script MyEffect;
 
     [SerializeField]
-    private GameObject PlayCardsHere1;
-    [SerializeField]
-    private GameObject PlayCardsHere2;
-    [SerializeField]
-    private GameObject PlayCardsHere3;
+    private GameObject[] PlayCardsHere;
 
 	void Think ()
 	{
 		//a smart ai would have things happen here,
-        if (false == PlayCardsHere1.GetComponent<Cells>().isOccupied)
+        int position = Random.Range(0, 3);
+        if (false == PlayCardsHere[position].GetComponent<Cells>().isOccupied)
         {
-            MyEffect.Affect(0, 0, gameObject, PlayCardsHere1);
+            if (PlayCardsHere[position].GetComponent<Cells>().isOccupied == false)
+            {
+                MyEffect.Affect(0, 0, gameObject, PlayCardsHere[position]);
+            }
+            else
+            {
+                //Debug.Log("Bad Roll - Rerolling");
+                Think();
+                return;
+            }
         }
 
         myDuration = 1f;
@@ -35,7 +41,7 @@ public class Opponent_Script : MonoBehaviour
     {
         myDuration -= Time.deltaTime;
 
-        if(myDuration <= 0f)
+        if (myDuration <= 0f)
         {
             if (myFinishTurnMessenger)
             {

@@ -28,13 +28,14 @@ public class MoveUnits : MonoBehaviour {
 
         Cells cell = transform.parent.GetComponent<Cells>();
 
-        if (cell && cell.isEnd() == false)
+        if (cell || cell.GetComponent<Owner_Script>().myOwner != gameObject.GetComponent<Owner_Script>().myOwner && cell.isEnd() == false)
         {
             //Unit = gameObject.GetComponent<UnitInfo>();
             int distance = gameObject.GetComponent<UnitInfo>().GetSpeed();
 
             if (distance > 0)
             {
+ 
                 if (transform.parent.GetComponent<Cells>().ForwardExists(distance) == true)
                 {
                     if (transform.parent.GetComponent<Cells>().GetForward(distance).GetComponent<Cells>().isOccupied == false)
@@ -64,13 +65,14 @@ public class MoveUnits : MonoBehaviour {
 
         Cells cell = transform.parent.GetComponent<Cells>();
 
-        if (cell && cell.isEnd() == false)
+        if (cell || cell.GetComponent<Owner_Script>().myOwner != gameObject.GetComponent<Owner_Script>().myOwner && cell.isEnd() == false)
         {
             //Unit = gameObject.GetComponent<UnitInfo>();
             int distance = gameObject.GetComponent<UnitInfo>().GetSpeed();
 
             if (distance > 0)
             {
+
                 if (transform.parent.GetComponent<Cells>().BackExists(distance) == true)
                 {
                     if (transform.parent.GetComponent<Cells>().GetBack(distance).GetComponent<Cells>().isOccupied == false)
@@ -86,7 +88,7 @@ public class MoveUnits : MonoBehaviour {
                     }
                     else Debug.Log("Another Unit is Blocking the way of " + gameObject.name);
                 }
-                else Debug.Log(gameObject.name + " Cannot move");
+                else Debug.Log(gameObject.name + " Cannot move Player Unit Back");
             }
             else Debug.Log(gameObject.name + " is stationary");
         }

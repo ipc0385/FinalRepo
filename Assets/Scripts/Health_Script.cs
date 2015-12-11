@@ -9,8 +9,18 @@ public class Health_Script : Effect_Script {
 	[SerializeField]
 	private Effect_Script[] myHealthEffects, myDamageEffects;
 
+    public Canvas winConditionScreen;
+    public Canvas loseConditionScreen;
 
-
+    void Start()
+    {
+        if (gameObject.name == "Main Camera" || gameObject.name == "EnemyPlayer")
+        {
+            Debug.Log("Player: " + this.gameObject);
+            winConditionScreen.enabled = false;
+            loseConditionScreen.enabled = false;
+        }
+    }
 
     void OnGUI()
     {
@@ -34,6 +44,21 @@ public class Health_Script : Effect_Script {
         currentHealth = health - damage;
         currentMaxHealth = health;
         currentDamage = damage;
+        if(gameObject.name == "Main Camera")
+        {
+            if (currentHealth <= 0)
+            {
+                loseConditionScreen.enabled = true;
+            }
+        }
+        else if (gameObject.name == "EnemyPlayer")
+        {
+            if (currentHealth <= 0 )
+            {
+                winConditionScreen.enabled = true;
+            }
+
+        }
     }
 
 
@@ -71,8 +96,7 @@ public class Health_Script : Effect_Script {
 		if(health <= damage)
 		{
             //Debug.Log(gameObject.name + " has died!");
-            if (gameObject.name != "EnemyPlayer" && gameObject.name != "Main Camera")
-            {
+            if (gameObject.GetComponent<Player_Script>() == false){
                 transform.parent = GetComponent<Owner_Script>().myOwner.myGraveyard.transform;  
                 transform.localPosition = Vector3.zero;
             }

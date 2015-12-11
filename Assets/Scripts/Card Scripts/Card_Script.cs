@@ -16,8 +16,10 @@ public class Card_Script : Effect_Script {
 
         //returns true if matches
         //returns false if fails
+        
         public bool Match(GameObject inSubject, GameObject inObject)
         {
+            
             Player_Script playerScript = inSubject.GetComponent<Player_Script>();
 		
             Player_Script ownerScript = inObject.GetComponent<Owner_Script>().myOwner;
@@ -77,6 +79,7 @@ public class Card_Script : Effect_Script {
 
 		if(playerScript)
 		{
+
 			//get cost of card
 			int manaCost = Mana;
 			int playerMana = playerScript.mana;
@@ -85,11 +88,14 @@ public class Card_Script : Effect_Script {
 			if (manaCost <= playerMana)
 			{
                 Player_Script ownerScript = null;
+                Cells cell = null;
 
                 if(inObject)
                 {
                     ownerScript = inObject.GetComponent<Owner_Script>().myOwner;
+                    cell = inObject.GetComponent<Cells>();
                 }
+
 
                 if (myMaskNegative.isOwned)
                 {
@@ -109,23 +115,25 @@ public class Card_Script : Effect_Script {
                     }
                 }
 
-                Cells cell = inObject.GetComponent<Cells>();
 
-                if (myMaskNegative.isOccupied)
+                if (cell)
                 {
-                    if (cell.isOccupied)
+                    if (myMaskNegative.isOccupied)
                     {
-                        Debug.Log("Target can't be occupied.");
-                        return 0;
+                        if (cell.isOccupied)
+                        {
+                            Debug.Log("Target can't be occupied.");
+                            return 0;
+                        }
                     }
-                }
 
-                if (myMaskPositive.isOccupied)
-                {
-                    if (false == cell.isOccupied)
+                    if (myMaskPositive.isOccupied)
                     {
-                        Debug.Log("Target must be occupied.");
-                        return 0;
+                        if (false == cell.isOccupied)
+                        {
+                            Debug.Log("Target must be occupied.");
+                            return 0;
+                        }
                     }
                 }
 
